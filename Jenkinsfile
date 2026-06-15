@@ -29,6 +29,7 @@ pipeline{
         }
         stage("Deploy"){
             steps{
+                sh "docker stop flask-container && docker rm flask-container"
                 sh "docker run -d --name flask-container -p 80:80 flask-app"
                 sleep(time: 20, unit: 'SECONDS')
                 sh "docker logs flask-container"
